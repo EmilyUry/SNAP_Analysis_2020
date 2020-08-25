@@ -1,7 +1,7 @@
 #' ---
 #' title: "SIR + salt talk figure"
 #' author: "Emily Ury"
-#' date: "July 20, 2020"
+#' date: "August 24, 2020"
 #' output: github_document
 #' ---
 #'
