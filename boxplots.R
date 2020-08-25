@@ -183,4 +183,6 @@ plot(log10(x$TIC), log10(x$TCC),  pch = c(24,25)[x$Depth], col = col3[x$Site],
 
 
 
+boxplot(Salinity~Treatment*Site, data = x, col = col.bp, border = col.bp2)
+boxplot(Salinity~Depth*Treatment*Site, data = x, col = col.bp3, border = col.bp4)
 
