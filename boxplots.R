@@ -67,6 +67,12 @@ boxplot(Suva254~Treatment*Site, data = x, col = col.bp, border = col.bp2)
 boxplot(Phenol~Treatment*Site, data = x, col = col.bp, border = col.bp2)
 
 
+phenR <- x$Phenol/x$DOC
+
+boxplot(phenR~Treatment*Site, data = x, col = col.bp, border = col.bp2)
+
+
+
 
 ## soil carbon
 
