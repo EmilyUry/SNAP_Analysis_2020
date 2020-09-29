@@ -59,7 +59,7 @@ d19.5 <- d19[which(d19$Depth != "(0-5)"),]
 
 
 ### FIGURE 1 (LOI -- all plots together)
-
+{
 par(mfrow = c(2,2), mar = c(0.2,0.2,0.2,0.2), oma = c(3, 6, 4, 0.5))
 
 boxplot(LOI~Treatment, data = d19.0, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 18), xaxt = 'n')
@@ -71,11 +71,10 @@ boxplot(LOI~Treatment, data = d19.5, col = c("dodgerblue", "tomato"), xlab = " "
 mtext("Depth \n 0-5 cm", side = 2, line = 2.5, las = 1, font = 2)
 boxplot(LOI~Treatment, data = d20.5, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 18), yaxt = 'n')
 mtext("Carbon (% loss on ignition)", outer = TRUE, side = 3, line = 2, font = 2, cex = 1.3)
-
-
+}
 
 ### FIGURE 2 (DOC -- all plots together)
-
+{
 par(mfrow = c(2,2), mar = c(0.2,0.2,0.2,0.2), oma = c(3, 6, 4, 0.5))
 
 boxplot(DOC~Treatment, data = d19.0, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 40), xaxt = 'n')
@@ -87,11 +86,10 @@ boxplot(DOC~Treatment, data = d19.5, col = c("dodgerblue", "tomato"), xlab = " "
 mtext("Depth \n 0-5 cm", side = 2, line = 2.5, las = 1, font = 2)
 boxplot(LOI~Treatment, data = d20.5, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 40), yaxt = 'n')
 mtext("DOC (mg/L)", outer = TRUE, side = 3, line = 2, font = 2, cex = 1.3)
-
-
+}
 
 ### FIGURE 3 (CMIN (per gram carbon)-- all plots together)
-
+{
 par(mfrow = c(2,2), mar = c(0.2,0.2,0.2,0.2), oma = c(3, 6, 4, 0.5))
 
 boxplot(Cmin_c~Treatment, data = d19.0, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 8), xaxt = 'n')
@@ -103,11 +101,10 @@ boxplot(Cmin_c~Treatment, data = d19.5, col = c("dodgerblue", "tomato"), xlab = 
 mtext("Depth \n 0-5 cm", side = 2, line = 2.5, las = 1, font = 2)
 boxplot(Cmin_c~Treatment, data = d20.5, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 8), yaxt = 'n')
 mtext("C-min (ugC-Co2/hr/gramC)", outer = TRUE, side = 3, line = 2, font = 2, cex = 1.3)
-
-
+}
 
 ### FIGURE 3alternate (CMIN (per gram dry soil)-- all plots together)
-
+{
 par(mfrow = c(2,2), mar = c(0.2,0.2,0.2,0.2), oma = c(3, 6, 4, 0.5))
 
 boxplot(Cmin_s~Treatment, data = d19.0, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 1.2), xaxt = 'n')
@@ -119,15 +116,12 @@ boxplot(Cmin_s~Treatment, data = d19.5, col = c("dodgerblue", "tomato"), xlab = 
 mtext("Depth \n 0-5 cm", side = 2, line = 2.5, las = 1, font = 2)
 boxplot(Cmin_s~Treatment, data = d20.5, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 1.2), yaxt = 'n')
 mtext("C-min (ugC-Co2/hr/gds)", outer = TRUE, side = 3, line = 2, font = 2, cex = 1.3)
-
-
-
-
+}
 
 
 
 ### FIGURE 4 (LOI -- by Site)
-
+{
 par(mfrow = c(2,2), mar = c(0.2,0.2,0.2,0.2), oma = c(3, 6, 4, 0.5))
 labs <- c("Control", "Salt", "Control", "Salt", "Control", "Salt")
 
@@ -153,11 +147,10 @@ axis(side = 1, at = 1:6, labels = labs)
 abline(v=2.5); abline(v=4.5)
 text(1.5, 19, "Dry", font = 4); text(3.5, 19, "Intermed", font = 4); text(5.5, 19, "Wet", font = 4)
 mtext("Carbon (% loss on ignition)", outer = TRUE, side = 3, line = 2, font = 2, cex = 1.3)
-
-
+}
 
 ### FIGURE 5 (DOC -- by Site)
-
+{
 par(mfrow = c(2,2), mar = c(0.2,0.2,0.2,0.4), oma = c(3, 6, 4, 0.5))
 labs <- c("Control", "Salt", "Control", "Salt", "Control", "Salt")
 
@@ -183,10 +176,10 @@ axis(side = 1, at = 1:6, labels = labs)
 abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
 text(1.5, 40, "Dry", font = 4, col = "gray50"); text(3.5, 40, "Intermed", font = 4, col = "gray50"); text(5.5, 40, "Wet", font = 4, col = "gray50")
 mtext("DOC (mg/L)", outer = TRUE, side = 3, line = 2, font = 2, cex = 1.3)
-
+}
 
 ### FIGURE 6 (CMIN (per gram carbon)-- all plots together)
-
+{
 par(mfrow = c(2,2), mar = c(0.2,0.2,0.2,0.4), oma = c(3, 6, 4, 0.5))
 labs <- c("Control", "Salt", "Control", "Salt", "Control", "Salt")
 
@@ -211,13 +204,163 @@ boxplot(Cmin_c~Treatment*Site, data = d20.5, col = c("dodgerblue", "tomato"), xl
 axis(side = 1, at = 1:6, labels = labs)
 abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
 text(1.5, 8, "Dry", font = 4, col = "gray50"); text(3.5, 8, "Intermed", font = 4, col = "gray50"); text(5.5, 8, "Wet", font = 4, col = "gray50")
-mtext("C-min (ugC-Co2/hr/gds)", outer = TRUE, side = 3, line = 2, font = 2, cex = 1.3)
+mtext("C-min (ugC-Co2/hr/gram c)", outer = TRUE, side = 3, line = 2, font = 2, cex = 1.3)
+
+}
+
+
+### FIGURE 6alternate (CMIN (per gram carbon)-- all plots together)
+{
+  par(mfrow = c(2,2), mar = c(0.2,0.2,0.2,0.4), oma = c(3, 6, 4, 0.5))
+  labs <- c("Control", "Salt", "Control", "Salt", "Control", "Salt")
+  
+  boxplot(Cmin_s~Treatment*Site, data = d19.0, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 1.2), xaxt = 'n')
+  mtext("Depth \n 0-5 cm", side = 2, line = 2.5, las = 1, font = 2)
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 1.2, "Dry", font = 4, col = "gray50"); text(3.5, 1.2, "Intermed", font = 4, col = "gray50"); text(5.5, 1.2, "Wet", font = 4, col = "gray50")
+  mtext("2019", side = 3, line = 0.5, font = 2)
+  
+  boxplot(Cmin_s~Treatment*Site, data = d20.0, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 1.2), yaxt ='n', xaxt='n')
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 1.2, "Dry", font = 4, col = "gray50"); text(3.5, 1.2, "Intermed", font = 4, col = "gray50"); text(5.5, 1.2, "Wet", font = 4, col = "gray50")
+  mtext("2020", side = 3, line = 0.5, font = 2)
+  
+  boxplot(Cmin_s~Treatment*Site, data = d19.5, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 1.2), xaxt = 'n')
+  axis(side = 1, at = 1:6, labels = labs)
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 1.2, "Dry", font = 4, col = "gray50"); text(3.5, 1.2, "Intermed", font = 4, col = "gray50"); text(5.5, 1.2, "Wet", font = 4, col = "gray50")
+  mtext("Depth \n 0-5 cm", side = 2, line = 2.5, las = 1, font = 2)
+  
+  boxplot(Cmin_s~Treatment*Site, data = d20.5, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 1.2), yaxt = 'n', xaxt = 'n')
+  axis(side = 1, at = 1:6, labels = labs)
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 1.2, "Dry", font = 4, col = "gray50"); text(3.5, 1.2, "Intermed", font = 4, col = "gray50"); text(5.5, 1.2, "Wet", font = 4, col = "gray50")
+  mtext("C-min (ugC-Co2/hr/gds)", outer = TRUE, side = 3, line = 2, font = 2, cex = 1.3)
+  
+}
 
 
 
 
 
 
+### FIGURE 7 (SIR (per gram soil)-- all plots together)
 
+{
+  par(mfrow = c(2,2), mar = c(0.2,0.2,0.2,0.4), oma = c(3, 6, 4, 0.5))
+  labs <- c("Control", "Salt", "Control", "Salt", "Control", "Salt")
+  
+  boxplot(SIR_s~Treatment*Site, data = d19.0, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 15), xaxt = 'n')
+  mtext("Depth \n 0-5 cm", side = 2, line = 2.5, las = 1, font = 2)
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 15, "Dry", font = 4, col = "gray50"); text(3.5, 15, "Intermed", font = 4, col = "gray50"); text(5.5, 15, "Wet", font = 4, col = "gray50")
+  mtext("2019", side = 3, line = 0.5, font = 2)
+  
+  boxplot(SIR_s~Treatment*Site, data = d20.0, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 15), yaxt ='n', xaxt='n')
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 15, "Dry", font = 4, col = "gray50"); text(3.5, 15, "Intermed", font = 4, col = "gray50"); text(5.5, 15, "Wet", font = 4, col = "gray50")
+  mtext("2020", side = 3, line = 0.5, font = 2)
+  
+  boxplot(SIR_s~Treatment*Site, data = d19.5, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 15), xaxt = 'n')
+  axis(side = 1, at = 1:6, labels = labs)
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 15, "Dry", font = 4, col = "gray50"); text(3.5, 15, "Intermed", font = 4, col = "gray50"); text(5.5, 15, "Wet", font = 4, col = "gray50")
+  mtext("Depth \n 0-5 cm", side = 2, line = 2.5, las = 1, font = 2)
+  
+  boxplot(SIR_s~Treatment*Site, data = d20.5, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 15), yaxt = 'n', xaxt = 'n')
+  axis(side = 1, at = 1:6, labels = labs)
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 15, "Dry", font = 4, col = "gray50"); text(3.5, 15, "Intermed", font = 4, col = "gray50"); text(5.5, 15, "Wet", font = 4, col = "gray50")
+  mtext("SIR (ugC-Co2/hr/gds)", outer = TRUE, side = 3, line = 2, font = 2, cex = 1.3)
+  
+}
 
+### Figure 8: Phenolics
+{
+  par(mfrow = c(2,2), mar = c(0.2,0.2,0.2,0.4), oma = c(3, 6, 4, 0.5))
+  labs <- c("Control", "Salt", "Control", "Salt", "Control", "Salt")
+  
+  boxplot(Phenol~Treatment*Site, data = d19.0, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 7), xaxt = 'n')
+  mtext("Depth \n 0-5 cm", side = 2, line = 2.5, las = 1, font = 2)
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 7, "Dry", font = 4, col = "gray50"); text(3.5, 7, "Intermed", font = 4, col = "gray50"); text(5.5, 7, "Wet", font = 4, col = "gray50")
+  mtext("2019", side = 3, line = 0.5, font = 2)
+  
+  boxplot(Phenol~Treatment*Site, data = d20.0, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 7), yaxt ='n', xaxt='n')
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 7, "Dry", font = 4, col = "gray50"); text(3.5, 7, "Intermed", font = 4, col = "gray50"); text(5.5, 7, "Wet", font = 4, col = "gray50")
+  mtext("2020", side = 3, line = 0.5, font = 2)
+  
+  boxplot(Phenol~Treatment*Site, data = d19.5, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 7), xaxt = 'n')
+  axis(side = 1, at = 1:6, labels = labs)
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 7, "Dry", font = 4, col = "gray50"); text(3.5, 7, "Intermed", font = 4, col = "gray50"); text(5.5, 7, "Wet", font = 4, col = "gray50")
+  mtext("Depth \n 0-5 cm", side = 2, line = 2.5, las = 1, font = 2)
+  
+  boxplot(Phenol~Treatment*Site, data = d20.5, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 7), yaxt = 'n', xaxt = 'n')
+  axis(side = 1, at = 1:6, labels = labs)
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 7, "Dry", font = 4, col = "gray50"); text(3.5, 7, "Intermed", font = 4, col = "gray50"); text(5.5, 7, "Wet", font = 4, col = "gray50")
+  mtext("Phenolic Compounds (mg/L)", outer = TRUE, side = 3, line = 2, font = 2, cex = 1.3)
+  
+}
 
+### Figure 9: Cmin / Phenolics
+{
+  par(mfrow = c(2,2), mar = c(0.2,0.2,0.2,0.4), oma = c(3, 6, 4, 0.5))
+  labs <- c("Control", "Salt", "Control", "Salt", "Control", "Salt")
+  
+  boxplot(Cmin_c*LOI/100/Phenol~Treatment*Site, data = d19.0, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 0.6), xaxt = 'n')
+  mtext("Depth \n 0-5 cm", side = 2, line = 2.5, las = 1, font = 2)
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 0.6, "Dry", font = 4, col = "gray50"); text(3.5,0.6, "Intermed", font = 4, col = "gray50"); text(5.5, 0.6, "Wet", font = 4, col = "gray50")
+  mtext("2019", side = 3, line = 0.5, font = 2)
+  
+  boxplot(Cmin_c*LOI/100/Phenol~Treatment*Site, data = d20.0, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 0.6), yaxt ='n', xaxt='n')
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 0.6, "Dry", font = 4, col = "gray50"); text(3.5,0.6, "Intermed", font = 4, col = "gray50"); text(5.5, 0.6, "Wet", font = 4, col = "gray50")
+  mtext("2020", side = 3, line = 0.5, font = 2)
+  
+  boxplot(Cmin_c*LOI/100/Phenol~Treatment*Site, data = d19.5, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 0.6), xaxt = 'n')
+  axis(side = 1, at = 1:6, labels = labs)
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 0.6, "Dry", font = 4, col = "gray50"); text(3.5,0.6, "Intermed", font = 4, col = "gray50"); text(5.5, 0.6, "Wet", font = 4, col = "gray50")
+  mtext("Depth \n 0-5 cm", side = 2, line = 2.5, las = 1, font = 2)
+  
+  boxplot(Cmin_c*LOI/100/Phenol~Treatment*Site, data = d20.5, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 0.6), yaxt = 'n', xaxt = 'n')
+  axis(side = 1, at = 1:6, labels = labs)
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 0.6, "Dry", font = 4, col = "gray50"); text(3.5,0.6, "Intermed", font = 4, col = "gray50"); text(5.5, 0.6, "Wet", font = 4, col = "gray50")
+  mtext("Cmin:Phenolics", outer = TRUE, side = 3, line = 2, font = 2, cex = 1.3)
+  
+}
+
+### Figure 9alternate: Cmin /c * phenol
+{
+  par(mfrow = c(2,2), mar = c(0.2,0.2,0.2,0.4), oma = c(3, 6, 4, 0.5))
+  labs <- c("Control", "Salt", "Control", "Salt", "Control", "Salt")
+  
+  boxplot(Cmin_c*Phenol~Treatment*Site, data = d19.0, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 40), xaxt = 'n')
+  mtext("Depth \n 0-5 cm", side = 2, line = 2.5, las = 1, font = 2)
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 40, "Dry", font = 4, col = "gray50"); text(3.5,40, "Intermed", font = 4, col = "gray50"); text(5.5, 40, "Wet", font = 4, col = "gray50")
+  mtext("2019", side = 3, line = 0.5, font = 2)
+  
+  boxplot(Cmin_c*Phenol~Treatment*Site, data = d20.0, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 40), yaxt ='n', xaxt='n')
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 40, "Dry", font = 4, col = "gray50"); text(3.5,40, "Intermed", font = 4, col = "gray50"); text(5.5, 40, "Wet", font = 4, col = "gray50")
+  mtext("2020", side = 3, line = 0.5, font = 2)
+  
+  boxplot(Cmin_c*Phenol~Treatment*Site, data = d19.5, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 40), xaxt = 'n')
+  axis(side = 1, at = 1:6, labels = labs)
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 40, "Dry", font = 4, col = "gray50"); text(3.5,40, "Intermed", font = 4, col = "gray50"); text(5.5, 40, "Wet", font = 4, col = "gray50")
+  mtext("Depth \n 0-5 cm", side = 2, line = 2.5, las = 1, font = 2)
+  
+  boxplot(Cmin_c*Phenol~Treatment*Site, data = d20.5, col = c("dodgerblue", "tomato"), xlab = " ", ylab = " ", ylim = c(0, 40), yaxt = 'n', xaxt = 'n')
+  axis(side = 1, at = 1:6, labels = labs)
+  abline(v=2.5, col = "gray60"); abline(v=4.5, col = "gray60")
+  text(1.5, 40, "Dry", font = 4, col = "gray50"); text(3.5,40, "Intermed", font = 4, col = "gray50"); text(5.5, 40, "Wet", font = 4, col = "gray50")
+  mtext("Cmin:Phenolics", outer = TRUE, side = 3, line = 2, font = 2, cex = 1.3)
+  
+}
