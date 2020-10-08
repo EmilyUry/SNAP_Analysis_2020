@@ -51,7 +51,7 @@ text(1.4, 500, "*", cex = 3)
 ### significance testing
 library(effsize)
 y <- x
-y$var <- y$SO4 
+y$var <- y$pH 
 cohen.d(y$var[y$Depth == "(0-5)" & y$Treatment == "Salt"], 
         y$var[y$Depth == "(0-5)" & y$Treatment == "Control"],
         conf.level = 0.95,
