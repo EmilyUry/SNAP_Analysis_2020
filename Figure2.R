@@ -21,6 +21,8 @@ x$carb <- x$BD*x$LOI/100 ## grams carbon per cubic cm soil
 x$Yr_mo <- c(rep("2020",60), rep("2019", 60), rep("2018 May", 60), rep("2018 Jul", 60))
 x$xx <- c(rep(4,60), rep(3, 60), rep(1, 60), rep(2, 60))
 
+x$xxx <- as.factor(x$xx)
+
 # #outlier exclusion
 # x <- x[-26,]
 # x <- x[-21,]
@@ -70,12 +72,14 @@ boxplot((Cmin_c)~Treatment*xx, data = x10, col = c("#143ee3bb", "#ff9b4aee"), xl
 
 boxplot((Phenol)~Treatment*xx, data = x5, col = c("#143ee3bb", "#ff9b4aee"), xlab = " ", ylab = " ", xaxt = 'n', ylim = c(0, 10),
         at = c(1,2,4,5,7,8,10,11), las = 1)
+text(10.5, 8, "*", cex = 3)
 axis(1, c(1.5, 4.5, 7.5, 10.5), c("2018\nMay", "2018\nJul", "2019\nJun", "2020\nAug"), tick = F)
 mtext("Phenol", 2, 3, outer = F, las =1, cex = 1.1, adj = 0.8)
 mtext("mg/L", 2,3, las = 1, cex =0.8, adj = 1, padj = 2)
 #text(1.4, 2500, "*", cex = 3)
 boxplot((Phenol)~Treatment*xx, data = x10, col = c("#143ee3bb", "#ff9b4aee"), xlab = " ", ylab = " ", xaxt = 'n', yaxt = 'n', ylim = c(0, 10),
         at = c(1,2,4,5,7,8,10,11))
+text(10.5, 8, "*", cex = 3)
 #text(1.4, 2500, "*", cex = 3)
 
 axis(1, c(1.5, 4.5, 7.5, 10.5), c("2018\nMay", "2018\nJul", "2019\nJun", "2020\nAug"), tick = F)
@@ -85,10 +89,34 @@ axis(1, c(1.5, 4.5, 7.5, 10.5), c("2018\nMay", "2018\nJul", "2019\nJun", "2020\n
 
 
 ### signficance test
-### facet labels
 
 
 
+lm <- lm(DOC ~ Treatment*xxx, data = x5)
+lm <- lm(DOC ~ Treatment*xxx, data = x10)
+
+lm <- lm(carb ~ Treatment*xxx, data = x5)
+lm <- lm(carb ~ Treatment*xxx, data = x10)
+
+lm <- lm(Cmin_c ~ Treatment*xxx, data = x5)
+lm <- lm(Cmin_c ~ Treatment*xxx, data = x10)
+
+lm <- lm(Phenol ~ Treatment*xxx, data = x5)
+lm <- lm(Phenol ~ Treatment*xxx, data = x10)
+
+
+av <- aov(lm)
+
+TukeyHSD(av)
+
+
+## sig dif
+
+
+## cmin (0-5) Salt 2020 - control 2020 p = 0.0667
+
+# phenol (0-5) Salt 2020 - control 2020 p = 0.0171
+# phenol (5-10) Salt 2020 - control 2020 p = 0.000929
 
 
 
