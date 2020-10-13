@@ -21,7 +21,7 @@ c <- x[which(x$Site == "5"),]
 
 
 
-par(mfrow = c(4,3),  oma = c(3,7,3,1), mar = c(0.4,0.2,0.4,0.2))
+par(mfrow = c(4,3),  oma = c(3,7,3,1), mar = c(0.4,0.4,0.4,0.4))
 plot(a$Month, a$Cl, ylim = c(0,2900), xaxt = 'n', pch = c(19,21)[a$Depth], col = c("#143ee3bb", "#ff9b4aee")[a$Treatment])
 abline(v=0, lty =2)
 mtext("Cl-", 2, 3, outer = F, las =1, cex = 1.1, adj = 1.6)
@@ -64,3 +64,4 @@ abline(v=0, lty =2)
 plot(c$Month, c$DOC, ylim = c(0,40), yaxt = 'n', xaxt = 'n', pch = c(19,21)[a$Depth], col = c("#143ee3bb", "#ff9b4aee")[a$Treatment])
 axis(1, at = c(-11, 20, 32,46), c("2015", "2018", "2019", "2020"))
 abline(v=0, lty =2)
+
