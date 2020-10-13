@@ -36,14 +36,16 @@ par(mfrow = c(4,2),  oma = c(3,7,3,1), mar = c(0.4,0.2,0.4,0.2))
 
 boxplot((DOC)~Treatment*xx, data = x5, col = c("#143ee3bb", "#ff9b4aee"), xlab = " ", ylab = " ", xaxt = 'n', ylim = c(0, 50),
         at = c(1,2,4,5,7,8,10,11), las = 1)
+text(10.5, 42, "*", cex = 3)
 legend("topleft", c("Control", "Salt"), pt.bg = c("#143ee3bb", "#ff9b4aee"),  pch = 22, pt.cex = 1.7, bty = 'n', ncol = 2)
 mtext("DOC", 2, 3, outer = F, las =1, cex = 1.1)
 mtext("mg/L", 2, 3, outer = F, las =1, cex = 0.8, adj = 1.1, padj = 2.2)
 
 mtext("Depth: 0-5 cm", 3, 0.5, cex = 0.8, font = 2)
-#text(1.4, 2500, "*", cex = 3)
+
 boxplot((DOC)~Treatment*xx, data = x10, col = c("#143ee3bb", "#ff9b4aee"), xlab = " ", ylab = " ", xaxt = 'n', yaxt = 'n', ylim = c(0, 50),
         at = c(1,2,4,5,7,8,10,11))
+text(10.5, 42, "*", cex = 3)
 mtext("Depth: 5-10 cm", 3, 0.5, cex = 0.8, font = 2)
 #text(1.4, 2500, "*", cex = 3)
 
