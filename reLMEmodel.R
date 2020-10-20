@@ -48,7 +48,8 @@ c <- x[which(x$Date == "July 10th, 2018" & x$Depth == "(5-10)"),]
 D <- x[which(x$Date == "May 10th, 2018" & x$Depth == "(0-5)"),]
 d <- x[which(x$Date == "May 10th, 2018" & x$Depth == "(5-10)"),]
 
-
+Z <- x[which(x$Depth == "(0-5)"),]
+z <- x[which(x$Depth == "(5-10)"),]
 
 
 model1 <- lmer(DOC~logCl + pH + SM + (1|Site), data = A, REML = F)
@@ -83,3 +84,13 @@ summary(M.d)
 
 M.A <- lmer(DOC~Treatment +  (1|Site), data = a, REML = T)
 summary(M.A)
+
+
+
+MZ <- lmer(DOC~logCl + pH + logCl*pH + (1 + Date | Site), data = Z, REML = F)
+Mz <- lmer(DOC~logCl + pH + logCl*pH + (1 + Date | Site), data = z, REML = F)
+summary(MZ)
+summary(Mz)
+
+
+### note in the above that the variance term of the random slope Date is very high
