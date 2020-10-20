@@ -136,11 +136,10 @@ s5se <- tapply(s5$Cl, s5$Month, se)
 
 xx <- c(-11, 19, 21, 32, 46)
 xxs <- c(19, 21, 32, 46)
-
-par(mfrow = c(3,3),  oma = c(3,7,3,1), mar = c(0.4,0.4,0.4,0.4))
+par(mfrow = c(3,3),  oma = c(3,7,3,1), mar = c(0.2,0.2,0.2,0.2))
 plot(xxs, S1mean, xlim = c(-12, 47), ylim = c(0,3000), pch = 16, cex = 2, col = "#E54C4C", type = "b", xaxt = 'n')
 mtext("Dry", 3, 1.2, cex = 1)
-mtext("Soil moisture: 30-40%", 3, 0.2, cex = 0.8)
+mtext("Soil moisture: 20-26%", 3, 0.2, cex = 0.8)
 
 arrows(xxs, S1mean-1.96*S1se, xxs, S1mean+1.96*S1se, angle = 90, length = 0.05, code = 3, col = "#E54C4C" )
 points(xxs, s1mean, xlim = c(-12, 47), ylim = c(0,3000), pch = 21, cex = 2, col = "#E54C4C", type = "b")
@@ -153,7 +152,7 @@ arrows(xx, c1mean-1.96*c1se, xx, c1mean+1.96*c1se, angle = 90, length = 0.05, co
 
 plot(xxs, S3mean, xlim = c(-12, 47), ylim = c(0,3000), pch = 16, cex = 2, col = "#E54C4C", type = "b", xaxt = 'n', yaxt = 'n')
 mtext("Intermediate", 3, 1.2, cex = 1)
-mtext("Soil moisture: 30-40%", 3, 0.2, cex = 0.8)
+mtext("Soil moisture: 28-32%", 3, 0.2, cex = 0.8)
 
 arrows(xxs, S3mean-1.96*S3se, xxs, S3mean+1.96*S3se, angle = 90, length = 0.05, code = 3, col = "#E54C4C" )
 points(xxs, s3mean, xlim = c(-12, 47), ylim = c(0,3000), pch = 21, cex = 2, col = "#E54C4C", type = "b")
@@ -166,7 +165,7 @@ arrows(xx, c3mean-1.96*c3se, xx, c3mean+1.96*c3se, angle = 90, length = 0.05, co
 
 plot(xxs, S5mean, xlim = c(-12, 47), ylim = c(0,3000), pch = 16, cex = 2, col = "#E54C4C", type = "b", xaxt = 'n', yaxt = "n")
 mtext("Wet", 3, 1.2, cex = 1)
-mtext("Soil moisture: 30-40%", 3, 0.2, cex = 0.8)
+mtext("Soil moisture: 26-36%", 3, 0.2, cex = 0.8)
 arrows(xxs, S5mean-1.96*S5se, xxs, S5mean+1.96*S5se, angle = 90, length = 0.05, code = 3, col = "#E54C4C" )
 points(xxs, s5mean, xlim = c(-12, 47), ylim = c(0,3000), pch = 21, cex = 2, col = "#E54C4C", type = "b")
 arrows(xxs, s5mean-1.96*s5se, xxs, s5mean+1.96*s5se, angle = 90, length = 0.05, code = 3, col = "#E54C4C" )
@@ -279,7 +278,8 @@ arrows(xx, c5mean-1.96*c5se, xx, c5mean+1.96*c5se, angle = 90, length = 0.05, co
   arrows(xx, C1mean-1.96*C1se, xx, C1mean+1.96*C1se, angle = 90, length = 0.05, code = 3, col = "#333333" )
   points(xx, c1mean, xlim = c(-12, 47), ylim = c(0,600), pch = 21, cex = 2, col = "#333333", type = "b")
   arrows(xx, c1mean-1.96*c1se, xx, c1mean+1.96*c1se, angle = 90, length = 0.05, code = 3, col = "#333333" )
-  
+  axis(1, at = c(-11,0, 20, 32,46), c("2015", "E", "2018", "2019", "2020"))
+  #abline(v=0, lty =2)
   
   plot(xxs, S3mean, xlim = c(-12, 47), ylim = c(0,600), pch = 16, cex = 2, col = "#E54C4C", type = "b", xaxt = 'n', yaxt = 'n')
   arrows(xxs, S3mean-1.96*S3se, xxs, S3mean+1.96*S3se, angle = 90, length = 0.05, code = 3, col = "#E54C4C" )
@@ -289,9 +289,13 @@ arrows(xx, c5mean-1.96*c5se, xx, c5mean+1.96*c5se, angle = 90, length = 0.05, co
   arrows(xx, C3mean-1.96*C3se, xx, C3mean+1.96*C3se, angle = 90, length = 0.05, code = 3, col = "#333333" )
   points(xx, c3mean, xlim = c(-12, 47), ylim = c(0,600), pch = 21, cex = 2, col = "#333333", type = "b")
   arrows(xx, c3mean-1.96*c3se, xx, c3mean+1.96*c3se, angle = 90, length = 0.05, code = 3, col = "#333333" )
-  
+  axis(1, at = c(-11,0, 20, 32,46), c("2015", "E", "2018", "2019", "2020"))
+  #abline(v=0, lty =2)
   
   plot(xxs, S5mean, xlim = c(-12, 47), ylim = c(0,600), pch = 16, cex = 2, col = "#E54C4C", type = "b", xaxt = 'n', yaxt = "n")
+  legend("topleft", c("Control (0-5 cm)", "Control (5-10 cm)"), col = c("#333333", "#333333"), pch = c(16,21), bty = 'n')
+  legend("topleft", c("Salt (0-5 cm)", "Salt (5-10 cm)"), col = c("#E54C4C", "#E54C4C"), pch = c(16,21), bty = 'n', inset= c(0.5,0))
+  
   arrows(xxs, S5mean-1.96*S5se, xxs, S5mean+1.96*S5se, angle = 90, length = 0.05, code = 3, col = "#E54C4C" )
   points(xxs, s5mean, xlim = c(-12, 47), ylim = c(0,600), pch = 21, cex = 2, col = "#E54C4C", type = "b")
   arrows(xxs, s5mean-1.96*s5se, xxs, s5mean+1.96*s5se, angle = 90, length = 0.05, code = 3, col = "#E54C4C" )
@@ -299,6 +303,8 @@ arrows(xx, c5mean-1.96*c5se, xx, c5mean+1.96*c5se, angle = 90, length = 0.05, co
   arrows(xx, C5mean-1.96*C5se, xx, C5mean+1.96*C5se, angle = 90, length = 0.05, code = 3, col = "#333333" )
   points(xx, c5mean, xlim = c(-12, 47), ylim = c(0,600), pch = 21, cex = 2, col = "#333333", type = "b")
   arrows(xx, c5mean-1.96*c5se, xx, c5mean+1.96*c5se, angle = 90, length = 0.05, code = 3, col = "#333333" )
+  axis(1, at = c(-11,0, 20, 32,46), c("2015", "E", "2018", "2019", "2020"))
+  #abline(v=0, lty =2)
 }
 
 
