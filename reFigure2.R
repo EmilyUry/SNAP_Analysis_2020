@@ -34,16 +34,16 @@ x10 <- x[which(x$Depth == "(5-10)"),]
 
 par(mfrow = c(4,2),  oma = c(3,7,3,1), mar = c(0.4,0.2,0.4,0.2))
 
-boxplot((DOC)~Treatment*xx, data = x5, col = c("#143ee3bb", "#ff9b4aee"), xlab = " ", ylab = " ", xaxt = 'n', ylim = c(0, 50),
+boxplot((DOC)~Treatment*xx, data = x5, col = c("#333333", "#E54C4C"), xlab = " ", ylab = " ", xaxt = 'n', ylim = c(0, 50),
         at = c(1,2,4,5,7,8,10,11), las = 1)
 text(10.5, 42, "*", cex = 3)
-legend("topleft", c("Control", "Salt"), pt.bg = c("#143ee3bb", "#ff9b4aee"),  pch = 22, pt.cex = 1.7, bty = 'n', ncol = 2)
+legend("topleft", c("Control", "Salt"), pt.bg = c("#333333", "#E54C4C"),  pch = 22, pt.cex = 1.7, bty = 'n', ncol = 2)
 mtext("DOC", 2, 3, outer = F, las =1, cex = 1.1)
 mtext("mg/L", 2, 3, outer = F, las =1, cex = 0.8, adj = 1.1, padj = 2.2)
 
 mtext("Depth: 0-5 cm", 3, 0.5, cex = 0.8, font = 2)
 
-boxplot((DOC)~Treatment*xx, data = x10, col = c("#143ee3bb", "#ff9b4aee"), xlab = " ", ylab = " ", xaxt = 'n', yaxt = 'n', ylim = c(0, 50),
+boxplot((DOC)~Treatment*xx, data = x10, col = c("#333333", "#E54C4C"), xlab = " ", ylab = " ", xaxt = 'n', yaxt = 'n', ylim = c(0, 50),
         at = c(1,2,4,5,7,8,10,11))
 text(10.5, 42, "*", cex = 3)
 mtext("Depth: 5-10 cm", 3, 0.5, cex = 0.8, font = 2)
@@ -52,34 +52,37 @@ mtext("Depth: 5-10 cm", 3, 0.5, cex = 0.8, font = 2)
 
 
 
-boxplot((carb)~Treatment*xx, data = x5, col = c("#143ee3bb", "#ff9b4aee"), xlab = " ", ylab = " ", xaxt = 'n', ylim = c(0, 0.2),
+boxplot((carb)~Treatment*xx, data = x5, col = c("#333333", "#E54C4C"), xlab = " ", ylab = " ", xaxt = 'n', ylim = c(0, 0.2),
         at = c(1,2,4,5,7,8,10,11), las = 1)
+
 mtext("C", 2, 3, outer = F, las =1, cex = 1.1, adj = 2.3)
 mtext(expression("g/cm"^3), 2, 3, outer = F, las =1, cex = 0.8, adj = 1.2, padj = 1.5)
 #text(1.4, 2500, "*", cex = 3)
-boxplot((carb)~Treatment*xx, data = x10, col = c("#143ee3bb", "#ff9b4aee"), xlab = " ", ylab = " ", xaxt = 'n', yaxt = 'n', ylim = c(0, 0.20),
+boxplot((carb)~Treatment*xx, data = x10, col = c("#333333", "#E54C4C"), xlab = " ", ylab = " ", xaxt = 'n', yaxt = 'n', ylim = c(0, 0.20),
         at = c(1,2,4,5,7,8,10,11))
 #text(1.4, 2500, "*", cex = 3)
 
 
-boxplot((Cmin_c)~Treatment*xx, data = x5, col = c("#143ee3bb", "#ff9b4aee"), xlab = " ", ylab = " ", xaxt = 'n', ylim = c(0, 18),
+boxplot((Cmin_c)~Treatment*xx, data = x5, col = c("#333333", "#E54C4C"), xlab = " ", ylab = " ", xaxt = 'n', ylim = c(0, 18),
         at = c(4,5,7,8,10,11), xlim = c(0.5,11.5), las = 1)
 mtext("Cmin", 2, 3, outer = F, las =1, cex = 1.1)
+text(10.5, 12, "*", cex = 2)
+
 mtext(expression(paste(mu,"gC/hr/gc")), 2,3, las = 1, cex =0.8, adj = 0.8, padj = 2)
 #text(1.4, 2500, "*", cex = 3)
-boxplot((Cmin_c)~Treatment*xx, data = x10, col = c("#143ee3bb", "#ff9b4aee"), xlab = " ", ylab = " ", xaxt = 'n', yaxt = 'n', ylim = c(0, 18),
+boxplot((Cmin_c)~Treatment*xx, data = x10, col = c("#333333", "#E54C4C"), xlab = " ", ylab = " ", xaxt = 'n', yaxt = 'n', ylim = c(0, 18),
         at = c(4,5,7,8,10,11), xlim = c(0.5,11.5))
 #text(1.4, 2500, "*", cex = 3)
 
 
-boxplot((Phenol)~Treatment*xx, data = x5, col = c("#143ee3bb", "#ff9b4aee"), xlab = " ", ylab = " ", xaxt = 'n', ylim = c(0, 10),
+boxplot((Phenol)~Treatment*xx, data = x5, col = c("#333333", "#E54C4C"), xlab = " ", ylab = " ", xaxt = 'n', ylim = c(0, 10),
         at = c(1,2,4,5,7,8,10,11), las = 1)
 text(10.5, 8, "*", cex = 3)
 axis(1, c(1.5, 4.5, 7.5, 10.5), c("2018\nMay", "2018\nJul", "2019\nJun", "2020\nAug"), tick = F)
 mtext("Phenol", 2, 3, outer = F, las =1, cex = 1.1, adj = 0.8)
 mtext("mg/L", 2,3, las = 1, cex =0.8, adj = 1, padj = 2)
 #text(1.4, 2500, "*", cex = 3)
-boxplot((Phenol)~Treatment*xx, data = x10, col = c("#143ee3bb", "#ff9b4aee"), xlab = " ", ylab = " ", xaxt = 'n', yaxt = 'n', ylim = c(0, 10),
+boxplot((Phenol)~Treatment*xx, data = x10, col = c("#333333", "#E54C4C"), xlab = " ", ylab = " ", xaxt = 'n', yaxt = 'n', ylim = c(0, 10),
         at = c(1,2,4,5,7,8,10,11))
 text(10.5, 8, "*", cex = 3)
 #text(1.4, 2500, "*", cex = 3)
