@@ -87,10 +87,32 @@ summary(M.A)
 
 
 
-MZ <- lmer(DOC~logCl + pH + logCl*pH + (1 + Date | Site), data = Z, REML = F)
-Mz <- lmer(DOC~logCl + pH + logCl*pH + (1 + Date | Site), data = z, REML = F)
+MZ <- lmer(DOC~ logCl*pH + (1 | Date/Site) , data = Z, REML = F)
+Mz <- lmer(DOC~logCl + logCl*pH + (1 | Date/Site), data = z, REML = F)
 summary(MZ)
 summary(Mz)
+
+
+MZ <- lmer(carb~logCl + pH + logCl*pH + (1 | Date/Site) , data = Z, REML = F)
+Mz <- lmer(carb~logCl + pH + logCl*pH + (1 | Date/Site), data = z, REML = F)
+summary(MZ)
+summary(Mz)
+
+options(na.action = "na.omit")
+MZ <- lmer(Cmin_c~logCl + pH + logCl*pH + (1 | Date/Site) , data = Z, REML = F)
+Mz <- lmer(Cmin_c~logCl + pH + logCl*pH + (1 | Date/Site), data = z, REML = F)
+summary(MZ)
+summary(Mz)
+
+
+MZ <- lmer(Phenol~logCl + pH + logCl*pH + (1 | Date/Site) , data = Z, REML = F)
+Mz <- lmer(Phenol~logCl + pH + logCl*pH + (1 | Date/Site), data = z, REML = F)
+summary(MZ)
+summary(Mz)
+
+
+
+
 
 
 ### note in the above that the variance term of the random slope Date is very high
