@@ -9,6 +9,7 @@
 
 setwd("C:/Users/uryem/Dropbox (Duke Bio_Ea)/My data/SNAP_2020")
 
+library(FSA)
 
 x <- read.csv("SNAP_3year_harm.csv", head = T)
 head(x)
@@ -136,5 +137,168 @@ TukeyHSD(av)
 # boxplot((Phenol/DOC)~Treatment*xx, data = x10, col = c("#143ee3bb", "#ff9b4aee"), xlab = " ", ylab = " ", xaxt = 'n', yaxt = 'n', ylim = c(0, 0.5),
 #         at = c(1,2,4,5,7,8,10,11))
 
+
+
+
+### FIgure 2a
+par(mfrow = c(4,2),  oma = c(3,7,3,1), mar = c(0.4,0.2,0.4,0.2))
+
+boxplot((DOC)~Treatment, data = x5, col = c("#333333", "#E54C4C"), xlab = " ", ylab = " ", xaxt = 'n', ylim = c(0, 50),
+ las = 1)
+legend("topleft", c("Control", "Salt"), pt.bg = c("#333333", "#E54C4C"),  pch = 22, pt.cex = 1.7, bty = 'n', ncol = 2)
+mtext("DOC", 2, 3, outer = F, las =1, cex = 1.1)
+mtext("mg/L", 2, 3, outer = F, las =1, cex = 0.8, adj = 1.1, padj = 2.2)
+
+mtext("Depth: 0-5 cm", 3, 0.5, cex = 0.8, font = 2)
+boxplot((DOC)~Treatment, data = x10, col = c("#333333", "#E54C4C"), xlab = " ", ylab = " ", xaxt = 'n', yaxt = 'n', ylim = c(0, 50))
+mtext("Depth: 5-10 cm", 3, 0.5, cex = 0.8, font = 2)
+
+
+boxplot((carb)~Treatment, data = x5, col = c("#333333", "#E54C4C"), xlab = " ", ylab = " ", xaxt = 'n', ylim = c(0, 0.2), las = 1)
+mtext("C", 2, 3, outer = F, las =1, cex = 1.1, adj = 2.3)
+mtext(expression("g/cm"^3), 2, 3, outer = F, las =1, cex = 0.8, adj = 1.2, padj = 1.5)
+boxplot((carb)~Treatment, data = x10, col = c("#333333", "#E54C4C"), xlab = " ", ylab = " ", xaxt = 'n', yaxt = 'n', ylim = c(0, 0.20))
+
+
+boxplot((Cmin_c)~Treatment, data = x5, col = c("#333333", "#E54C4C"), xlab = " ", ylab = " ", xaxt = 'n', ylim = c(0, 18), las = 1)
+mtext("Cmin", 2, 3, outer = F, las =1, cex = 1.1)
+#text(10.5, 12, "*", cex = 2)
+mtext(expression(paste(mu,"gC/hr/gc")), 2,3, las = 1, cex =0.8, adj = 0.8, padj = 2)
+#text(1.4, 2500, "*", cex = 3)
+boxplot((Cmin_c)~Treatment, data = x10, col = c("#333333", "#E54C4C"), xlab = " ", ylab = " ", xaxt = 'n', yaxt = 'n', ylim = c(0, 18))
+#text(1.4, 2500, "*", cex = 3)
+
+
+boxplot((Phenol)~Treatment, data = x5, col = c("#333333", "#E54C4C"), xlab = " ", ylab = " ", xaxt = 'n', ylim = c(0, 10),
+         las = 1)
+#text(10.5, 8, "*", cex = 3)
+#axis(1, c(1.5, 4.5, 7.5, 10.5), c("2018\nMay", "2018\nJul", "2019\nJun", "2020\nAug"), tick = F)
+axis(1, c(1,2), c("Control", "Salt"))
+mtext("Phenol", 2, 3, outer = F, las =1, cex = 1.1, adj = 0.8)
+mtext("mg/L", 2,3, las = 1, cex =0.8, adj = 1, padj = 2)
+#text(1.4, 2500, "*", cex = 3)
+boxplot((Phenol)~Treatment, data = x10, col = c("#333333", "#E54C4C"), xlab = " ", ylab = " ", xaxt = 'n', yaxt = 'n', ylim = c(0, 10))
+text(10.5, 8, "*", cex = 3)
+#text(1.4, 2500, "*", cex = 3)
+axis(1, c(1,2), c("Control", "Salt"))
+
+
+lm <- lm(DOC ~ Treatment, data = x5)
+lm <- lm(DOC ~ Treatment, data = x10)
+
+lm <- lm(carb ~ Treatment, data = x5)
+lm <- lm(carb ~ Treatment, data = x10)
+
+lm <- lm(Cmin_c ~ Treatment, data = x5)
+lm <- lm(Cmin_c ~ Treatment, data = x10)
+
+lm <- lm(Phenol ~ Treatment, data = x5)
+lm <- lm(Phenol ~ Treatment, data = x10)
+
+
+av <- aov(lm)
+TukeyHSD(av)
+
+###################################################################################################
+###################################################################################################
+
+## Figure 2c
+x <- read.csv("SNAP_timeseries_data.csv", head = T)
+head(x)
+names(x) <- c( "Date", "Year", "Site", "Treatment", "Month", "Depth", "Core", "Salinity","Cond", "BD", 
+               "SM", "LOI", "pH", "Roots", "DOC", "TDN", 
+               "Cl", "SO4", "Na", "K", "Mg", "Ca", "TIC", "TCC", "NH4", "ICNO3", "ICPO4",
+               "Cmin_s", "Cmin_c", "SIR_s", "SIR_c", "Br", "Phenol", "NO3", "PO4", "Suva254")
+x$Treatment <- as.factor(x$Treatment)
+x$Depth <- as.factor(x$Depth)
+
+tapply(x$SM, x$Site, quantile)
+
+C1 <- x[which(x$Site == "1" & x$Depth == "(0-5)" & x$Treatment == "Control"),]
+c1 <- x[which(x$Site == "1" & x$Depth == "(5-10)" & x$Treatment == "Control"),]
+C3 <- x[which(x$Site == "3" & x$Depth == "(0-5)" & x$Treatment == "Control"),]
+c3 <- x[which(x$Site == "3" & x$Depth == "(5-10)" & x$Treatment == "Control"),]
+C5 <- x[which(x$Site == "5" & x$Depth == "(0-5)" & x$Treatment == "Control"),]
+c5 <- x[which(x$Site == "5" & x$Depth == "(5-10)" & x$Treatment == "Control"),]
+
+
+S1 <- x[which(x$Site == "1" & x$Depth == "(0-5)" & x$Treatment == "Salt"),]
+s1 <- x[which(x$Site == "1" & x$Depth == "(5-10)" & x$Treatment == "Salt"),]
+S3 <- x[which(x$Site == "3" & x$Depth == "(0-5)" & x$Treatment == "Salt"),]
+s3 <- x[which(x$Site == "3" & x$Depth == "(5-10)" & x$Treatment == "Salt"),]
+S5 <- x[which(x$Site == "5" & x$Depth == "(0-5)" & x$Treatment == "Salt"),]
+s5 <- x[which(x$Site == "5" & x$Depth == "(5-10)" & x$Treatment == "Salt"),]
+
+
+
+### Chloride plot
+{
+        C1mean <- tapply(C1$Cl, C1$Month, mean)
+        C1se <- tapply(C1$Cl, C1$Month, se)
+        c1mean <- tapply(c1$Cl, C1$Month, mean)
+        c1se <- tapply(c1$Cl, C1$Month, se)
+        C3mean <- tapply(C3$Cl, C1$Month, mean)
+        C3se <- tapply(C3$Cl, C1$Month, se)
+        c3mean <- tapply(c3$Cl, C1$Month, mean)
+        c3se <- tapply(c3$Cl, C1$Month, se)
+        C5mean <- tapply(C5$Cl, C1$Month, mean)
+        C5se <- tapply(C5$Cl, C1$Month, se)
+        c5mean <- tapply(c5$Cl, C1$Month, mean)
+        c5se <- tapply(c5$Cl, C1$Month, se)
+        
+        
+        S1mean <- tapply(S1$Cl, S1$Month, mean)
+        S1se <- tapply(S1$Cl, S1$Month, se)
+        s1mean <- tapply(s1$Cl, s1$Month, mean)
+        s1se <- tapply(s1$Cl, s1$Month, se)
+        S3mean <- tapply(S3$Cl, S3$Month, mean)
+        S3se <- tapply(S3$Cl, S3$Month, se)
+        s3mean <- tapply(s3$Cl, s3$Month, mean)
+        s3se <- tapply(s3$Cl, s3$Month, se)
+        S5mean <- tapply(S5$Cl, S5$Month, mean)
+        S5se <- tapply(S5$Cl, S5$Month, se)
+        s5mean <- tapply(s5$Cl, s5$Month, mean)
+        s5se <- tapply(s5$Cl, s5$Month, se)
+        
+        xx <- c(-11, 19, 21, 32, 46)
+        xxs <- c(19, 21, 32, 46)
+        par(mfrow = c(3,3),  oma = c(3,7,3,1), mar = c(0.2,0.2,0.2,0.2))
+        plot(xxs, S1mean, xlim = c(-12, 47), ylim = c(0,3000), pch = 16, cex = 2, col = "#E54C4C", type = "b", xaxt = 'n')
+        mtext("Dry", 3, 1.2, cex = 1)
+        mtext("Soil moisture: 20-26%", 3, 0.2, cex = 0.8)
+        
+        arrows(xxs, S1mean-1.96*S1se, xxs, S1mean+1.96*S1se, angle = 90, length = 0.05, code = 3, col = "#E54C4C" )
+        points(xxs, s1mean, xlim = c(-12, 47), ylim = c(0,3000), pch = 21, cex = 2, col = "#E54C4C", type = "b")
+        arrows(xxs, s1mean-1.96*s1se, xxs, s1mean+1.96*s1se, angle = 90, length = 0.05, code = 3, col = "#E54C4C" )
+        points(xx, C1mean, xlim = c(-12, 47), ylim = c(0,3000), pch = 16, cex = 2, col = "#333333", type = "b")
+        arrows(xx, C1mean-1.96*C1se, xx, C1mean+1.96*C1se, angle = 90, length = 0.05, code = 3, col = "#333333" )
+        points(xx, c1mean, xlim = c(-12, 47), ylim = c(0,3000), pch = 21, cex = 2, col = "#333333", type = "b")
+        arrows(xx, c1mean-1.96*c1se, xx, c1mean+1.96*c1se, angle = 90, length = 0.05, code = 3, col = "#333333" )
+        
+        
+        plot(xxs, S3mean, xlim = c(-12, 47), ylim = c(0,3000), pch = 16, cex = 2, col = "#E54C4C", type = "b", xaxt = 'n', yaxt = 'n')
+        mtext("Intermediate", 3, 1.2, cex = 1)
+        mtext("Soil moisture: 28-32%", 3, 0.2, cex = 0.8)
+        
+        arrows(xxs, S3mean-1.96*S3se, xxs, S3mean+1.96*S3se, angle = 90, length = 0.05, code = 3, col = "#E54C4C" )
+        points(xxs, s3mean, xlim = c(-12, 47), ylim = c(0,3000), pch = 21, cex = 2, col = "#E54C4C", type = "b")
+        arrows(xxs, s3mean-1.96*s3se, xxs, s3mean+1.96*s3se, angle = 90, length = 0.05, code = 3, col = "#E54C4C" )
+        points(xx, C3mean, xlim = c(-12, 47), ylim = c(0,3000), pch = 16, cex = 2, col = "#333333", type = "b")
+        arrows(xx, C3mean-1.96*C3se, xx, C3mean+1.96*C3se, angle = 90, length = 0.05, code = 3, col = "#333333" )
+        points(xx, c3mean, xlim = c(-12, 47), ylim = c(0,3000), pch = 21, cex = 2, col = "#333333", type = "b")
+        arrows(xx, c3mean-1.96*c3se, xx, c3mean+1.96*c3se, angle = 90, length = 0.05, code = 3, col = "#333333" )
+        
+        
+        plot(xxs, S5mean, xlim = c(-12, 47), ylim = c(0,3000), pch = 16, cex = 2, col = "#E54C4C", type = "b", xaxt = 'n', yaxt = "n")
+        mtext("Wet", 3, 1.2, cex = 1)
+        mtext("Soil moisture: 26-36%", 3, 0.2, cex = 0.8)
+        arrows(xxs, S5mean-1.96*S5se, xxs, S5mean+1.96*S5se, angle = 90, length = 0.05, code = 3, col = "#E54C4C" )
+        points(xxs, s5mean, xlim = c(-12, 47), ylim = c(0,3000), pch = 21, cex = 2, col = "#E54C4C", type = "b")
+        arrows(xxs, s5mean-1.96*s5se, xxs, s5mean+1.96*s5se, angle = 90, length = 0.05, code = 3, col = "#E54C4C" )
+        points(xx, C5mean, xlim = c(-12, 47), ylim = c(0,3000), pch = 16, cex = 2, col = "#333333", type = "b")
+        arrows(xx, C5mean-1.96*C5se, xx, C5mean+1.96*C5se, angle = 90, length = 0.05, code = 3, col = "#333333" )
+        points(xx, c5mean, xlim = c(-12, 47), ylim = c(0,3000), pch = 21, cex = 2, col = "#333333", type = "b")
+        arrows(xx, c5mean-1.96*c5se, xx, c5mean+1.96*c5se, angle = 90, length = 0.05, code = 3, col = "#333333" )
+}
 
      
