@@ -9,6 +9,7 @@
 
 setwd("C:/Users/uryem/Dropbox (Duke Bio_Ea)/My data/SNAP_2020")
 
+library(FSA) ## need this for SE function
 
 x <- read.csv("SNAP_3year_harm.csv", head = T)
 head(x)
