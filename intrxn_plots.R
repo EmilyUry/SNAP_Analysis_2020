@@ -97,3 +97,4 @@ d3 <- density(x$pH[which(x$Site == 3)])
 polygon(d3, col="#9400D399", border="purple")
 d5 <- density(x$pH[which(x$Site == 5)])
 polygon(d5, col="#0000FF99", border="blue")
+
