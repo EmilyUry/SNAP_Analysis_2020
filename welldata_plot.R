@@ -43,7 +43,19 @@ points(SA, ys, pch = 25, bg = "black")
         
 
 
+#### log scale
 
+plot(data$sal_S, type = 'l', col = "red", xlim = c(-29000, 97000), 
+     #ylim = c(0, 18000), 
+     xaxt = 'n',
+     xlab = ' ', ylab = "Conductivity uS/cm",
+     log ="y")
+points(data$sal_c, type = 'l', log = "y")
+legend("bottomleft", c("Salt Addition","Salt","Control"), pch = c(25, 20, 20), 
+       pt.cex = c(1.3,0.01,0.01), pt.bg = c("black"),
+       col = c("white", "red", "black"), lty = 1)
+
+axis(1, c(-28000, 30000, 90000), c("October 2016", "February 2018", "June 2020"))   
 
         
         
