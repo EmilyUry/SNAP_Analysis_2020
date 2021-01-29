@@ -24,3 +24,13 @@ x$xxx <- as.factor(x$xx)
 Site1 <- x[which(x$Site == "1"),]
 Site3 <- x[which(x$Site == "3"),]
 Site5 <- x[which(x$Site == "5"),]
+
+
+
+par(mfrow = c(2,3), mar = c(5,5,3,3))
+
+
+
+
+c <- x[which(x$Treatment == "Control"),]
+s <- x[which(x$Treatment == "Salt"),]
