@@ -21,8 +21,40 @@ x$Depth <- as.factor(x$Depth)
 
 ### CMIN
 library(plyr)
-z <- ddply(x, .(Treatment, Site, Date), summarise, 
-           cmin = mean(Cmin_c, na.rm = T),
-           se.cmin = sqrt(var(Cmin_c, na.rm = T))/length(Cmin_c))
-names(z) <- c("Treatment", "Site", "Date", "cmin_avg", "cmin_se")
+z <- ddply(x, .(Date, Site, Treatment, Depth), summarise, 
+           cmin = mean(SM, na.rm = T),
+           se.cmin = sqrt(var(SM, na.rm = T))/length(SM))
+names(z) <- c("Date", "Site", "Treatment", "depth", "mean", "se")
+z$var <- rep("SM", 48)
 z
+
+y <- ddply(x, .(Date, Site, Treatment, Depth), summarise, 
+           cmin = mean(BD, na.rm = T),
+           se.cmin = sqrt(var(BD, na.rm = T))/length(BD))
+names(y) <- c("Date", "Site", "Treatment", "depth", "mean", "se")
+y$var <- rep("BD", 48)
+y
+
+dz <- data.frame(z)
+dy <- data.frame(y)
+df <- rbind(dz, dy)
+df$mean <- round(df$mean, 2)
+df$se <- round(df$se, 2)
+write.csv(df, "stat_sum.csv")
+z
+
+
+
+
+for( i in c(9:34)){
+Var <- df[,i]
+
+Var1 <- ddply(x, .(Date, Site, Treatment, Depth), summarise, 
+           cmin = mean(Var, na.rm = T),
+           se.cmin = sqrt(var(Var, na.rm = T))/length(Var))
+names(y) <- c("Date", "Site", "Treatment", "depth", "mean", "se")
+y$var <- rep("BD", 48)
+y}
+
+
+
