@@ -12,11 +12,17 @@ names(x) <- c("Date", "Year", "Site", "Treatment", "Depth", "Core", "Salinity","
               "Cl", "SO4", "Na", "K", "Mg", "Ca", "TIC", "TCC", "NH4", "ICNO3", "ICPO4",
               "Cmin_s", "Cmin_c", "SIR_s", "SIR_c", "Br", "Phenol", "NO3", "PO4", "Suva254")
 
+### replace NAs in nutrient (NO3, NH4, PO4) data with 0.005, which is half detection limit. 
+
+
 # 
 # x <- subset(x, select = c("Date", "Site", "Treatment", "Depth", "pH", "LOI", 
 #                           "DOC", "Phenol", "Cmin_s", "Cmin_c", "SIR_s", "SIR_c", "Roots" ))
 
 x <- data.table(x)
+x$ICNO3[is.na(x$ICNO3)] <- 0.005
+x$NH4[is.na(x$NH4)] <- 0.005
+x$PO4[is.na(x$PO4)] <- 0.005
 
 
 date <- c(rep("Aug 2020", 12), rep("Jun 2019", 12), rep("May 2018", 12), rep("Jul 2018", 12))
@@ -24,6 +30,20 @@ date <- factor(date, levels = c("May 2018", "Jul 2018", "Jun 2019", "Aug 2020") 
 
 
 ############ Figures -- timeseries
+
+x$response <- x$pH
+output <- x[,.("mean" = mean(response), "se" = std.error(response)),
+            by = c("Date", "Site", "Treatment", "Depth")]
+output$variable <- rep("pH", 48)
+output$mean <- round(output$mean, 2)
+output$se <- round(output$se, 2)
+output$Site <- as.factor(output$Site)
+output$Treatment <- as.factor(output$Treatment)
+output$date <- date
+s.pH <- output
+
+### FIGURE  points and error bars 
+
 
 ## pH 
 {
@@ -41,11 +61,13 @@ s.pH <- output
 ### FIGURE  points and error bars 
 labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
 names(labs) <- c("(0-5)", "(5-10)")
-ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
   geom_point() +
   geom_line() +
   facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-  scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+  scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+  scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+  scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
   theme_bw() +
   xlab(" ") +
   ylab("pH") +
@@ -68,11 +90,13 @@ s.LOI <- output
 ### FIGURE  points and error bars 
 labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
 names(labs) <- c("(0-5)", "(5-10)")
-ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
   geom_point() +
   geom_line() +
   facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-  scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+  scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+  scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+  scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
   theme_bw() +
   xlab(" ") +
   ylab("LOI (%)") +
@@ -95,11 +119,13 @@ ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), col
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('DOC (mg · L'^-1, ')'))) +  
@@ -122,11 +148,13 @@ ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), col
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('Phenolics (mg · L'^-1, ')'))) +  
@@ -149,11 +177,13 @@ ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), col
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('Phenolics (mg · mg DOC'^-1, ')'))) +   
@@ -176,11 +206,13 @@ ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), col
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('C'[mineralization], '(', mu, 'g C-CO'[2], ' gds'^-1, ')'))) +  
@@ -203,11 +235,13 @@ ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), col
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('C'[mineralization], '(', mu, 'g C-CO'[2], ' g C'^-1, ')'))) +  
@@ -230,11 +264,13 @@ ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), col
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('SIR (', mu, 'g C-CO'[2], ' gds'^-1, ')'))) +  
@@ -257,11 +293,13 @@ ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), col
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('SIR (', mu, 'g C-CO'[2], ' g C'^-1, ')'))) +  
@@ -284,11 +322,13 @@ ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), col
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('Roots (g / 100 cm '^3, ')'))) +  
@@ -320,11 +360,13 @@ write.csv(df, "stat_sum.csv")
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('Bulk density (g / cm'^3, ')'))) +  
@@ -346,11 +388,13 @@ write.csv(df, "stat_sum.csv")
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab("SM (%)") +  
@@ -372,11 +416,13 @@ write.csv(df, "stat_sum.csv")
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('TDN (mg · L'^-1, ')'))) +  
@@ -398,11 +444,13 @@ write.csv(df, "stat_sum.csv")
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('NH' [4], ' (ug N · gds'^-1, ')'))) +  
@@ -424,11 +472,13 @@ write.csv(df, "stat_sum.csv")
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('NO' [3], ' (ug N · gds'^-1, ')'))) +  
@@ -450,11 +500,13 @@ write.csv(df, "stat_sum.csv")
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('PO' [4], ' (ug P · gds' ^-1, ')'))) +  
@@ -477,11 +529,13 @@ write.csv(df, "stat_sum.csv")
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('Cl (ug · gds' ^-1, ')'))) +  
@@ -503,11 +557,13 @@ write.csv(df, "stat_sum.csv")
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('SO'[4], ' (ug · gds' ^-1, ')'))) +  
@@ -529,11 +585,13 @@ write.csv(df, "stat_sum.csv")
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('Na (ug · gds' ^-1, ')'))) +  
@@ -555,11 +613,13 @@ write.csv(df, "stat_sum.csv")
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('K (ug · gds' ^-1, ')'))) +  
@@ -581,11 +641,13 @@ write.csv(df, "stat_sum.csv")
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('Mg (ug · gds' ^-1, ')'))) +  
@@ -607,11 +669,13 @@ write.csv(df, "stat_sum.csv")
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
-  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Site, linetype = Treatment)) +
+  ggplot(output, aes(x = date, y = mean, group = interaction(Treatment, Site), color = Treatment, linetype = Site, shape = Site)) +
     geom_point() +
     geom_line() +
     facet_grid(Depth ~ . ,labeller = labeller(Depth = labs)) + 
-    scale_color_manual(values=c("#db351f", "#948b8a", "#000000"), labels = c("Dry", "Int.", "Wet")) +
+    scale_color_manual(values=c("#000000", "#db351f"), labels = c("Control", "Salt")) +  
+    scale_linetype_manual(values=c("dotted", "longdash", "solid"), labels = c("Dry", "Int.", "Wet"))+
+    scale_shape_manual(values=c(17, 16, 15), labels = c("Dry", "Int.", "Wet")) +
     theme_bw() +
     xlab(" ") +
     ylab(expression(paste('Ca (ug · gds' ^-1, ')'))) +  
