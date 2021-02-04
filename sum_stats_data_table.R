@@ -87,7 +87,7 @@ ggplot(output, aes(x = daten, y = mean, group = interaction(Treatment, Site), co
 
 ###### ANOVA
 
-
+x$Site <- as.factor(x$Site)
 res.aov <- aov(response ~ Date*Site*Depth*Treatment, data = x)
 summary(res.aov)
 TukeyHSD(res.aov)
