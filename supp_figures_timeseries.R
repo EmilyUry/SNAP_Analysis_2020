@@ -355,7 +355,7 @@ write.csv(df, "stat_sum.csv")
   output$Site <- as.factor(output$Site)
   output$Treatment <- as.factor(output$Treatment)
   output$date <- date
-
+  s.BD <- output
   
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
@@ -384,7 +384,8 @@ write.csv(df, "stat_sum.csv")
   output$Site <- as.factor(output$Site)
   output$Treatment <- as.factor(output$Treatment)
   output$date <- date
-
+  s.SM <- output
+  
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
   names(labs) <- c("(0-5)", "(5-10)")
@@ -412,6 +413,7 @@ write.csv(df, "stat_sum.csv")
   output$Site <- as.factor(output$Site)
   output$Treatment <- as.factor(output$Treatment)
   output$date <- date
+  s.TDN <- output
   
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
@@ -440,6 +442,7 @@ write.csv(df, "stat_sum.csv")
   output$Site <- as.factor(output$Site)
   output$Treatment <- as.factor(output$Treatment)
   output$date <- date
+  s.NH4 <- output
   
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
@@ -468,6 +471,7 @@ write.csv(df, "stat_sum.csv")
   output$Site <- as.factor(output$Site)
   output$Treatment <- as.factor(output$Treatment)
   output$date <- date
+  s.NO3 <- output
   
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
@@ -496,6 +500,7 @@ write.csv(df, "stat_sum.csv")
   output$Site <- as.factor(output$Site)
   output$Treatment <- as.factor(output$Treatment)
   output$date <- date
+  s.PO4 <- output
   
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
@@ -525,6 +530,7 @@ write.csv(df, "stat_sum.csv")
   output$Site <- as.factor(output$Site)
   output$Treatment <- as.factor(output$Treatment)
   output$date <- date
+  s.Cl <- output
   
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
@@ -553,6 +559,7 @@ write.csv(df, "stat_sum.csv")
   output$Site <- as.factor(output$Site)
   output$Treatment <- as.factor(output$Treatment)
   output$date <- date
+  s.SO4 <- output
   
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
@@ -581,6 +588,7 @@ write.csv(df, "stat_sum.csv")
   output$Site <- as.factor(output$Site)
   output$Treatment <- as.factor(output$Treatment)
   output$date <- date
+  s.Na <- output
   
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
@@ -609,6 +617,7 @@ write.csv(df, "stat_sum.csv")
   output$Site <- as.factor(output$Site)
   output$Treatment <- as.factor(output$Treatment)
   output$date <- date
+  s.K <- output
   
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
@@ -637,6 +646,7 @@ write.csv(df, "stat_sum.csv")
   output$Site <- as.factor(output$Site)
   output$Treatment <- as.factor(output$Treatment)
   output$date <- date
+  s.Mg <- output
   
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
@@ -665,6 +675,7 @@ write.csv(df, "stat_sum.csv")
   output$Site <- as.factor(output$Site)
   output$Treatment <- as.factor(output$Treatment)
   output$date <- date
+  s.Ca <- output
   
   ### FIGURE  points and error bars 
   labs <- c("Depth: 0-5 cm", "Depth: 5-10 cm")
@@ -683,4 +694,20 @@ write.csv(df, "stat_sum.csv")
 }
 
 
+df <- rbind(s.pH, s.LOI, s.DOC, s.phenol, s.phenolics.doc, s.Cmin_c, s.Cmin_s, s.SIR_c, s.SIR_s, s.roots, s.BD, s.SM,
+            s.TDN, s.NH4, s.NO3, s.PO4, s.Cl, s.SO4, s.Na, s.K, s.Mg, s.Ca)
 
+## would like to wrap the units into this as well.
+          
+write.csv(df, "stat_sum_all_data2.csv")
+
+## create a key for column names and units
+units <- c("%", "g/cm3", "pH", "%", "mg/L", "ug/gds", "ug/gds", "ug/gds", "ug/gds", "ug/gds", "ug/gds", 
+           "mg/L", "ug/gds", "ug/gds", "ug/gds","mg/L", "mg/mg DOC",
+           "ugC-CO2/hour/gds", "ugC-CO2/hour/goc", "ugC-CO2/hour/gds", "ugC-CO2/hour/goc", "g/100cm3" )
+variable <- c("SM", "BD", "pH", "LOI", 
+              "DOC", "Cl", "SO4", "Na", "K", "Mg", "Ca", "TDN", "NH4", "NO3", "PO4","Phenol", "PhenolDOC",
+              "Cmin_s", "Cmin_c", "SIR_s", "SIR_c", "Roots" )
+key <- data.frame(variable, units)
+
+write.csv(key, "unit_key.csv")
