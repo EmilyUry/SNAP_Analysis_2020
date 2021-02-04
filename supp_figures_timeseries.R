@@ -23,7 +23,10 @@ x <- data.table(x)
 x$ICNO3[is.na(x$ICNO3)] <- 0.005
 x$NH4[is.na(x$NH4)] <- 0.005
 x$PO4[is.na(x$PO4)] <- 0.005
-
+x$Mg[is.na(x$Mg)] <- 0.005
+x$Ca[is.na(x$Ca)] <- 0.005
+x$Mg[x$Mg < 0] <- 0.005
+x$Ca[x$Ca < 0] <- 0.005
 
 date <- c(rep("Aug 2020", 12), rep("Jun 2019", 12), rep("May 2018", 12), rep("Jul 2018", 12))
 date <- factor(date, levels = c("May 2018", "Jul 2018", "Jun 2019", "Aug 2020") )
@@ -699,7 +702,7 @@ df <- rbind(s.pH, s.LOI, s.DOC, s.phenol, s.phenolics.doc, s.Cmin_c, s.Cmin_s, s
 
 ## would like to wrap the units into this as well.
           
-write.csv(df, "stat_sum_all_data2.csv")
+write.csv(df, "stat_sum_all_data3.csv")
 
 ## create a key for column names and units
 units <- c("%", "g/cm3", "pH", "%", "mg/L", "ug/gds", "ug/gds", "ug/gds", "ug/gds", "ug/gds", "ug/gds", 
