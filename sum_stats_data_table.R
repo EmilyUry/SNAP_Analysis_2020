@@ -10,8 +10,8 @@ names(x) <- c("Date", "Year", "Site", "Treatment", "Depth", "Core", "Salinity","
               "Cmin_s", "Cmin_c", "SIR_s", "SIR_c", "Br", "Phenol", "NO3", "PO4", "Suva254")
 
 
-x <- subset(x, select = c("Date", "Site", "Treatment", "Depth", "pH", "LOI", 
-                          "DOC", "Phenol", "Cmin_s", "Cmin_c", "SIR_s", "SIR_c", "Roots" ))
+#x <- subset(x, select = c("Date", "Site", "Treatment", "Depth", "pH", "LOI", 
+#                          "DOC", "Phenol", "Cmin_s", "Cmin_c", "SIR_s", "SIR_c", "Roots" ))
 
 
 library(data.table)
@@ -21,11 +21,21 @@ library(ggplot2)
 x <- data.table(x)
 
 
-x$response <- x$pH
-  
-  
-output <- x[,.("mean" = mean(response), "se" = std.error(response)),
+x$response <- x$SIR_c
+
+output <- x[,.("mean" = round(mean(response),4), "se" = round(std.error(response),3), "sdev" = round(sd(response), 3)),
              by = c("Date", "Site", "Treatment", "Depth")]
+
+
+
+
+
+
+
+
+
+
+
 output$variable <- rep("pH", 48)
 output$mean <- round(output$mean, 2)
 output$se <- round(output$se, 2)
